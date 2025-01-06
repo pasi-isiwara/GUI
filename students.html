@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <h1>Student Management</h1>
         <nav>
@@ -15,15 +14,14 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="students.html">Students</a></li>
                 <li><a href="reports.html">Reports</a></li>
+                <li><a href="login.html" id="logout-btn">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Student Management Section -->
     <main>
-        <section>
+        <section class="add-student-section">
             <h2>Add New Student</h2>
-            <!-- Student Form -->
             <form id="student-form">
                 <label for="student-name">Name:</label>
                 <input type="text" id="student-name" required>
@@ -33,29 +31,41 @@
 
                 <button type="submit">Add Student</button>
             </form>
+        </section>
 
-            <!-- Table to Display Students -->
-            <table id="students-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Grade</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamic rows will be added here -->
-                </tbody>
-            </table>
+        <section class="subject-section">
+            <h2>Add Subjects</h2>
+            <form id="subject-form">
+                <label for="subject-name">Subject Name:</label>
+                <input type="text" id="subject-name" required>
+
+                <label for="subject-weight">Weight (%):</label>
+                <input type="number" id="subject-weight" min="0" max="100" required>
+
+                <label for="inclass-date">In-Class Date:</label>
+                <input type="date" id="inclass-date" required>
+
+                <label for="report-date">Report Submission Date:</label>
+                <input type="date" id="report-date" required>
+
+                <label for="exam-date">Exam Date:</label>
+                <input type="date" id="exam-date" required>
+
+                <button type="submit">Add Subject</button>
+            </form>
+        </section>
+
+        <section class="progress-section">
+            <h2>Daily Progress Tracker</h2>
+            <p>Update your progress for each subject:</p>
+            <div id="progress-list"></div>
         </section>
     </main>
 
-    <!-- Footer Section -->
     <footer>
         <p>&copy; 2025 SPMS. All Rights Reserved.</p>
     </footer>
 
-    <!-- JavaScript File -->
     <script src="js/script.js"></script>
 </body>
 </html>
