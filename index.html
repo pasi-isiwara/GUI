@@ -7,31 +7,47 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Header Section -->
     <header>
         <h1>Student Performance Management System</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="students.html">Students</a></li>
-                <li><a href="reports.html">Reports</a></li>
-                <li><a href="#" id="logout-btn">Logout</a></li>
-
+                <li><a href="students.html">Update</a></li>
+                <li><a href="summary.html">Summary</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="login.html" id="logout-btn">Logout</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Home Section -->
     <main>
-        <section>
-            <h2>Welcome to SPMS</h2>
-            <p>Manage student performance efficiently.</p>
+        <section class="welcome-section">
+            <h2>Welcome, <span id="student-name">Student</span>!</h2>
+            <p>Manage your subjects, track progress, and prepare for exams efficiently.</p>
+        
+            <div class="countdown">
+                <h3>Countdown to Final Exam:</h3>
+                <p id="exam-countdown">Loading...</p>
+            </div>
+        
+            <div class="day-target">
+                <h3>Today's Target:</h3>
+                <p id="day-target">Loading...</p>
+            </div>
+        
+            <div class="upcoming-assessments">
+                <h3>Upcoming Assessments:</h3>
+                <ul id="assessment-list">Loading...</ul>
+            </div>
+        
+            <button id="resource-files-btn">Access Resource Materials</button>
         </section>
     </main>
 
-    <!-- Footer Section -->
     <footer>
         <p>&copy; 2025 SPMS. All Rights Reserved.</p>
     </footer>
+
+    <script src="js/home.js"></script>
 </body>
 </html>
