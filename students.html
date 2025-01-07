@@ -20,19 +20,6 @@
     </header>
 
     <main>
-        <section class="add-student-section">
-            <h2>Add New Student</h2>
-            <form id="student-form">
-                <label for="student-name">Name:</label>
-                <input type="text" id="student-name" required>
-
-                <label for="student-grade">Grade:</label>
-                <input type="text" id="student-grade" required>
-
-                <button type="submit">Add Student</button>
-            </form>
-        </section>
-
         <section class="subject-section">
             <h2>Add Subjects</h2>
             <form id="subject-form">
@@ -60,6 +47,28 @@
             <p>Update your progress for each subject:</p>
             <div id="progress-list"></div>
         </section>
+         <!-- Final Exam Date -->
+    <label for="final-exam-date">Final Exam Date:</label>
+    <input type="date" id="final-exam-date">
+    <button id="save-exam-date">Save Date</button>
+    <br><br>
+
+        <!-- Assessments -->
+    <h2>Assessments</h2>
+    <label for="assessment-subject">Subject:</label>
+    <input type="text" id="assessment-subject">
+    <label for="assessment-date">Date:</label>
+    <input type="date" id="assessment-date">
+    <button id="add-assessment">Add Assessment</button>
+    <ul id="assessments-list"></ul>
+
+    <br><br>
+
+    <!-- Daily Targets -->
+    <h2>Daily Targets</h2>
+    <textarea id="daily-target" placeholder="Set your daily target..."></textarea>
+    <button id="save-target">Save Target</button>
+    <br><br>
     </main>
 
     <footer>

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     studentNameElement.textContent = studentName;
 
     // Countdown to final exam
-    const finalExamDate = new Date("2025-06-01");
+    const finalExamDate = new Date(localStorage.getItem("finalExamDate") || "2025-06-01");
     const updateCountdown = () => {
         const now = new Date();
         const timeLeft = finalExamDate - now;
@@ -18,19 +18,16 @@ document.addEventListener("DOMContentLoaded", () => {
         countdownElement.textContent = `${daysLeft} days remaining`;
     };
     updateCountdown();
-    setInterval(updateCountdown, 1000 * 60 * 60); // Update hourly
+    setInterval(updateCountdown, 1000 * 60 * 60);
 
     // Upcoming assessments
-    const assessments = [
-        { subject: "Math", date: "2025-03-15" },
-        { subject: "Science", date: "2025-03-20" },
-    ];
+    const assessments = JSON.parse(localStorage.getItem("assessments")) || [];
     assessmentListElement.innerHTML = assessments
         .map(a => `<li>${a.subject} - ${a.date}</li>`)
         .join("");
 
     // Daily target
-    const dayTarget = localStorage.getItem("dayTarget") || "Review 3 chapters of Math.";
+    const dayTarget = localStorage.getItem("dayTarget") || "Set your daily target.";
     dayTargetElement.textContent = dayTarget;
 
     // Resource files button
