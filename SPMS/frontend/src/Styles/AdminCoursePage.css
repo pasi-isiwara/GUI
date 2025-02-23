@@ -1,72 +1,94 @@
-/* General Page Styling */
-.admin-course-page {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+body {
     font-family: Arial, sans-serif;
-  }
-  
-  /* Headings */
-  h1, h2 {
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 600px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    text-align: left;
+    margin: 20px auto; /* Center the container */
+}
+
+h1 {
     color: #333;
     text-align: center;
-  }
-  
-  /* Form Sections */
-  .course-inputs, .topics-section, .assessments-section {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
     margin-bottom: 20px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Labels & Inputs */
-  label {
-    display: block;
+}
+
+h2 {
+    color: #000000; /* Change color for section headers */
+    margin-top: 20px;
+    border-bottom: 2px solid #000000; /* Underline for section headers */
+    padding-bottom: 5px;
+}
+
+.input-container {
+    margin-bottom: 15px; /* Space between input fields */
+}
+
+label {
     font-weight: bold;
-    margin: 10px 0 5px;
-  }
-  
-  input {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
     width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
+    padding: 10px;
+    margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  /* Topic & Assessment List */
-  .topic-item, .assessment-item {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .topic-item input, .assessment-item input {
-    flex: 1;
-  }
-  
-  /* Buttons */
-  button {
-    display: block;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #000000; /* Change border color on focus */
+    outline: none; /* Remove default outline */
+}
+
+button {
     width: 100%;
-    background: #007bff;
-    color: white;
     padding: 10px;
+    margin-top: 15px;
     border: none;
     border-radius: 5px;
+    background-color: #1fa888;
+    color: white;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s, transform 0.2s; /* Add transform for button */
+}
+
+button:hover {
+    background-color: #084c3c;
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+
+button:active {
+    transform: translateY(0); /* Reset lift effect on click */
+}
+
+.topic-container, .assessment-container {
+    background: #f9f9f9;
+    padding: 10px;
     margin-top: 10px;
-  }
-  
-  button:hover {
-    background: #0056b3;
-  }
-  
+    border-left: 5px solid #007bff;
+    border-radius: 5px;
+}
+
+.topic-container input, .assessment-container input {
+    margin-bottom: 5px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+    }
+}

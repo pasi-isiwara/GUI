@@ -4,6 +4,7 @@ import "../Styles/AdminCoursePage.css";
 
 export const AdminCoursePage = () => {
   const [courseName, setCourseName] = useState("");
+  const [moduleCode, setModuleCode] = useState("");
   const [credits, setCredits] = useState("");
   const [topics, setTopics] = useState([]);
   const [assessments, setAssessments] = useState([]);
@@ -32,31 +33,82 @@ export const AdminCoursePage = () => {
     setAssessments(newAssessments);
   };
 
-  return (
-    <div style={{ textAlign: "left", padding: "20px" }}>
-      <NavBar />
-      <h1>Admin Course Page</h1>
+  // Validate module code input
+  const handleModuleCodeChange = (e) => {
+    const value = e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, "");
+    setModuleCode(value);
+  };
 
-      {/* Course Name and Credits */}
-      <label>Course Name:</label>
-      <input
-        type="text"
-        value={courseName}
-        onChange={(e) => setCourseName(e.target.value)}
-        placeholder="Enter Course Name"
-      />
-      <label>Credits:</label>
-      <input
-        type="number"
-        value={credits}
-        onChange={(e) => setCredits(e.target.value)}
-        placeholder="Enter Credits"
-      />
+  // Submit course data to backend
+  const submitCourse = async () => {
+    const courseData = {
+      courseName,
+      moduleCode,
+      credits,
+      topics,
+      assessments,
+    };
+
+    try {
+      const response = await fetch("http://localhost:5005/add-course", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(courseData),
+      });
+
+      const data = await response.json();
+      alert(data.message);
+      // Reset form after submission
+      setCourseName("");
+      setModuleCode("");
+      setCredits("");
+      setTopics([]);
+      setAssessments([]);
+    } catch (error) {
+      console.error("Error submitting course:", error);
+    }
+  };
+
+  return (
+    <div className="container">
+      
+      <h1>Enter the New Module</h1>
+
+      {/* Course Name, Module Code, and Credits */}
+      <div className="input-container">
+        <label>Course Name:</label>
+        <input
+          type="text"
+          value={courseName}
+          onChange={(e) => setCourseName(e.target.value)}
+          placeholder="Enter Course Name"
+        />
+      </div>
+
+      <div className="input-container">
+        <label>Module Code:</label>
+        <input
+          type="text"
+          value={moduleCode}
+          onChange={handleModuleCodeChange}
+          placeholder="Enter Module Code (e.g., MATH_101)"
+        />
+      </div>
+
+      <div className="input-container">
+        <label>Credits:</label>
+        <input
+          type="number"
+          value={credits}
+          onChange={(e) => setCredits(e.target.value)}
+          placeholder="Enter Credits"
+        />
+      </div>
 
       {/* Topics Section */}
       <h2>Contents</h2>
       {topics.map((topic, index) => (
-        <div key={index}>
+        <div key={index} className="topic-container">
           <input
             type="text"
             value={topic.name}
@@ -74,9 +126,10 @@ export const AdminCoursePage = () => {
       <button onClick={addTopic}>+ Add Topic</button>
 
       {/* Assessments Section */}
+      <p></p>
       <h2>Continuous Assessments</h2>
       {assessments.map((assessment, index) => (
-        <div key={index}>
+        <div key={index} className="assessment-container">
           <input
             type="text"
             value={assessment.name}
@@ -92,6 +145,11 @@ export const AdminCoursePage = () => {
         </div>
       ))}
       <button onClick={addAssessment}>+ Add Assessment</button>
+
+      {/* Submit Button */}
+      <button onClick={submitCourse} className="submit-button">
+        Submit Course
+      </button>
     </div>
   );
 };
