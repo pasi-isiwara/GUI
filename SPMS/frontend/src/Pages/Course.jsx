@@ -1,8 +1,10 @@
 import React from 'react'
+import NavBar from "./NavBar";
 
 export const Course = () => {
   return (
     <div style={{ textAlign: "left", padding: "20px" }}>
+        <NavBar />
     <h1>MODULE NAME <span style={{ float: "right" }}>total hrs</span></h1>
     
     <h2>Contents</h2>

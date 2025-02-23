@@ -1,0 +1,72 @@
+/* General Page Styling */
+.admin-course-page {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Headings */
+  h1, h2 {
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Form Sections */
+  .course-inputs, .topics-section, .assessments-section {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Labels & Inputs */
+  label {
+    display: block;
+    font-weight: bold;
+    margin: 10px 0 5px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  /* Topic & Assessment List */
+  .topic-item, .assessment-item {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .topic-item input, .assessment-item input {
+    flex: 1;
+  }
+  
+  /* Buttons */
+  button {
+    display: block;
+    width: 100%;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  button:hover {
+    background: #0056b3;
+  }
+  

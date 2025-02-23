@@ -1,0 +1,60 @@
+/* NavBar.css */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #222;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  nav h2 {
+    font-size: 2.0rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+  
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    position: relative;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  nav ul li a:hover {
+    color: #f4a261;
+  }
+  
+  /* Underline effect on hover */
+  nav ul li a::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background: #f4a261;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.3s ease-in-out;
+  }
+  
+  nav ul li a:hover::after {
+    width: 100%;
+  }
+  
