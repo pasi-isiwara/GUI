@@ -3,21 +3,19 @@ import mysql from 'mysql';
 import cors from 'cors';
 
 const app = express();
+const PORT = 5005;
 
-// Database connection configuration
-const db = {
-  host: 'bagzohmlwp71pya3e1fy-mysql.services.clever-cloud.com',  // Your database host
-  user: 'utexprev7p2pq1bf',  // Your database username
-  password: 'hz1NX7QILg6eDvMmaB83',  // Your database password
-  database: 'bagzohmlwp71pya3e1fy'  // Your database name
-};
+// Database connection
+const db = mysql.createConnection({
+  host: 'bagzohmlwp71pya3e1fy-mysql.services.clever-cloud.com',
+  user: 'utexprev7p2pq1bf',
+  password: 'hz1NX7QILg6eDvMmaB83',
+  database: 'bagzohmlwp71pya3e1fy',
+});
 
-const connection = mysql.createConnection(db);
-
-// Connect to database
-connection.connect((err) => {
+db.connect((err) => {
   if (err) {
-    console.log('Database connection failed:', err);
+    console.error('Database connection failed:', err);
   } else {
     console.log('Connected to the database');
   }
@@ -27,44 +25,50 @@ connection.connect((err) => {
 app.use(express.json());
 app.use(cors());
 
-// Route to insert course data
+// Route to add a new course
 app.post('/add-course', (req, res) => {
-  const { courseName, credits, topics, assessments } = req.body;
+  const { courseName, moduleCode, credits, topics, assessments } = req.body;
 
-  if (!courseName || !credits || !topics || !assessments) {
-    return res.status(400).json({ message: "All fields are required" });
+  if (!courseName || !moduleCode || !credits) {
+    return res.status(400).json({ message: 'Please fill all required fields.' });
   }
 
-  // Insert course into database
-  const courseQuery = "INSERT INTO courses (name, credits) VALUES (?, ?)";
-  connection.query(courseQuery, [courseName, credits], (err, courseResult) => {
-    if (err) return res.status(500).json({ message: "Database Error", error: err });
+  const insertCourseQuery = `INSERT INTO courses (courseName, moduleCode, credits) VALUES (?, ?, ?)`;
 
-    const courseId = courseResult.insertId; // Get the inserted course ID
+  db.query(insertCourseQuery, [courseName, moduleCode, credits], (err, result) => {
+    if (err) {
+      console.error('Error inserting course:', err);
+      return res.status(500).json({ message: 'Failed to add course.' });
+    }
+
+    const courseId = result.insertId; // Get inserted course ID
 
     // Insert topics
-    const topicValues = topics.map(topic => [courseId, topic.name, topic.hours]);
-    if (topicValues.length > 0) {
-      const topicQuery = "INSERT INTO topics (course_id, name, hours) VALUES ?";
-      connection.query(topicQuery, [topicValues], (err) => {
-        if (err) console.error("Error inserting topics:", err);
+    if (topics.length > 0) {
+      const topicValues = topics.map((t) => [courseId, t.name, t.hours]);
+      const insertTopicsQuery = `INSERT INTO topics (courseId, name, hours) VALUES ?`;
+
+      db.query(insertTopicsQuery, [topicValues], (err) => {
+        if (err) console.error('Error inserting topics:', err);
       });
     }
 
     // Insert assessments
-    const assessmentValues = assessments.map(assessment => [courseId, assessment.name, assessment.marks]);
-    if (assessmentValues.length > 0) {
-      const assessmentQuery = "INSERT INTO assessments (course_id, name, marks) VALUES ?";
-      connection.query(assessmentQuery, [assessmentValues], (err) => {
-        if (err) console.error("Error inserting assessments:", err);
+    if (assessments.length > 0) {
+      const assessmentValues = assessments.map((a) => [courseId, a.name, a.marks]);
+      const insertAssessmentsQuery = `INSERT INTO assessments (courseId, name, marks) VALUES ?`;
+
+      db.query(insertAssessmentsQuery, [assessmentValues], (err) => {
+        if (err) console.error('Error inserting assessments:', err);
       });
     }
 
-    res.status(200).json({ message: "Course added successfully" });
+    res.status(200).json({ message: 'Course added successfully!' });
   });
 });
 
 // Start server
-app.listen(5005, () => {
-  console.log('Server is running on http://localhost:5005');
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
 });
+

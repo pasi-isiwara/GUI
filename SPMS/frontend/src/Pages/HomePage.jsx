@@ -6,14 +6,16 @@ export const HomePage = () => {
   return (
     <div style={{ textAlign: "left", padding: "20px" }}>
       <NavBar />
-      <h1>Welcome Message</h1>
+      <h1>Welcome User</h1>
       <h2>Course Categories</h2>
       <ul>
         <li>
           <strong>Electrical Engineering</strong>
           <ul>
             <li><a href="/Course">Module 1</a></li>
-            <li><a href="/electrical/module2">Module 2</a></li>
+            <li><a href="/Course">Module 2</a></li>
+            <li><a href="/Course">Module 3</a></li>
+            <li><a href="/electrical/module2">Module 4</a></li>
           </ul>
         </li>
         <li>

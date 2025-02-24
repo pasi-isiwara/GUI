@@ -10,14 +10,25 @@ ul > li > strong {
   ul ul li a {
     font-size: 1.5rem;
     font-weight: bold; /* Make the module text bold */
-    color: #1051a5; /* A nice blue color for links */
+    color: #053429;; /* A nice blue color for links */
     text-decoration: none; /* Remove underline */
     transition: color 0.3s ease-in-out;
   }
   
   /* Hover effect */
   ul ul li a:hover {
-    color: #f4a261; /* Change color on hover */
+    color: #178a72;; /* Change color on hover */
     text-decoration: underline;
   }
   
+  h1 {
+    font-size: 3rem;
+    color: #222;
+    margin: 10px;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    color: #222;
+    margin: 10px;
+  } 
