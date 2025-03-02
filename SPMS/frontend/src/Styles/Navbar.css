@@ -1,61 +1,93 @@
 /* NavBar.css */
 nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
-    background-color: #072c26;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #072c26, #0d4035);
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 10px auto;
+  max-width: 95%;
+}
+
+/* Logo */
+nav h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: white;
+}
+
+nav h2:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation Links */
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  position: relative;
+}
+
+/* Link Styles */
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effects */
+nav ul li a:hover {
+  color: #1fa888;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Underline Effect */
+nav ul li a::after {
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0;
+  background: #1fa888;
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease-in-out;
+}
+
+nav ul li a:hover::after {
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+      flex-direction: column;
+      text-align: center;
+      padding: 15px;
   }
-  
-  nav h2 {
-    font-size: 2.0rem;
-    font-weight: bold;
-    letter-spacing: 1px;
-    color: azure;
-  }
-  
+
   nav ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-    margin: 0;
-    padding: 0;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 10px;
   }
-  
-  nav ul li {
-    position: relative;
-  }
-  
+
   nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 2rem;
-    font-weight: 500;
-    padding: 8px 12px;
-    transition: color 0.3s ease-in-out;
+      display: block;
+      padding: 12px 20px;
   }
-  
-  nav ul li a:hover {
-    color: #1fa888;;
-  }
-  
-  /* Underline effect on hover */
-  nav ul li a::after {
-    content: "";
-    display: block;
-    height: 3px;
-    width: 0;
-    background: #1fa888;;
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: width 0.3s ease-in-out;
-  }
-  
-  nav ul li a:hover::after {
-    width: 100%;
-  }
-  
+}
