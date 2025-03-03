@@ -7,6 +7,7 @@ import { AllCourses } from './Pages/AllCourses';
 import { AdminHome } from './Pages/AdminHome';
 import { AdminCoursePage } from './Pages/AdminCoursePage';
 import { AdminCourseView } from './Pages/AdminCourseView';
+import {UpdateCourseInfo} from './Pages/UpdateCourseInfo';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
           <Route path="/admincourse" element={<AdminCoursePage />} />
           <Route path="/admincourseview" element={<AdminCourseView />} />
           <Route path="/admincourseview/:courseId" element={<AdminCourseView />} />
+          <Route path="/updatecourseinfo" element={<UpdateCourseInfo />} />
+          <Route path="/updatecourseinfo/:courseId" element={<UpdateCourseInfo />} />
           
           <Route path="*" element={<h1>404 Not Found</h1>} />
         </Routes>

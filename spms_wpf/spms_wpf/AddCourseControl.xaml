@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="spms_wpf.AddCourseControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="500" Width="700">
+    <Grid Background="#D3F8E5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Right" Margin="20">
+                <TextBlock Text="Add New Course" FontSize="24" Foreground="#0C8F67" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <!-- Course Name -->
+                <TextBlock Text="Course Name:" FontWeight="Bold"/>
+                <TextBox Width="400" Margin="0,10"/>
+
+                <!-- Module Code -->
+                <TextBlock Text="Module Code:" FontWeight="Bold"/>
+                <TextBox Width="400" Margin="0,10"/>
+
+                <!-- Credits -->
+                <TextBlock Text="Credits:" FontWeight="Bold"/>
+                <TextBox Width="400" Margin="0,10"/>
+
+                <!-- Contents Section -->
+                <TextBlock Text="Contents" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
+                <StackPanel Name="ContentList"/>
+                <Button Content="+ Add Topic" Background="#0C8F67" Foreground="White" FontWeight="Bold" Width="400" Height="40" Margin="0,10"/>
+
+                <!-- Continuous Assessments Section -->
+                <TextBlock Text="Continuous Assessments" FontSize="18" FontWeight="Bold" Margin="0,20,0,10"/>
+                <StackPanel Name="AssessmentList"/>
+                <Button Content="+ Add Assessment" Background="#0C8F67" Foreground="White" FontWeight="Bold" Width="400" Height="40" Margin="0,10"/>
+
+                <!-- Submit Button -->
+                <Button Content="Submit Course" Background="#0C8F67" Foreground="White" FontWeight="Bold" Width="400" Height="40" Margin="0,20"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

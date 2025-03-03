@@ -1,65 +1,147 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import "../Styles/Course.css";
 
-export const Course = () => {
-  const moduleName = "Example Module";
-  const totalHours = 100; // Example total hours
-  const contents = [
-    { name: "Topic 1", completed: true },
-    { name: "Topic 2", completed: false },
-    { name: "Topic 3", completed: false },
-    { name: "Topic 4", completed: true },
-  ];
-  
-  const [caMarks, setCaMarks] = useState([30, 20, 35, 25]); // Example CA marks
-  const totalCaMarks = caMarks.reduce((sum, mark) => sum + mark, 0);
-  const eligibleForFinal = totalCaMarks >= 30;
-  const moreMarksNeeded = Math.max(0, 40 - totalCaMarks); // Marks needed to pass
-  
-  const calculateGrade = (finalMarks) => {
-    if (finalMarks >= 85) return "A+";
-    if (finalMarks >= 75) return "A";
-    if (finalMarks >= 70) return "A-";
-    if (finalMarks >= 65) return "B+";
-    if (finalMarks >= 60) return "B";
-    if (finalMarks >= 55) return "B-";
-    if (finalMarks >= 50) return "C+";
-    if (finalMarks >= 45) return "C";
-    if (finalMarks >= 40) return "C-";
-    return "F";
+export const Course= () => {
+  const { courseId } = useParams();
+  const [courseData, setCourseData] = useState({});
+  const [caMarks, setCaMarks] = useState([]);
+  const [completedTopics, setCompletedTopics] = useState({});
+  const [remainingHours, setRemainingHours] = useState(0);
+
+  useEffect(() => {
+    if (courseId) {
+      fetch(`http://localhost:5005/get-course/${courseId}`)
+        .then((response) => response.json())
+        .then((data) => {
+            setCourseData(data);
+          setCaMarks(Array(data[0].assessments.length).fill(""));
+          const initialCompleted = {};
+          data[0].topics.forEach((topic) => {
+            initialCompleted[topic.id] = false;
+          });
+          setCompletedTopics(initialCompleted);
+          setRemainingHours(data[0].topics.reduce((sum, topic) => sum + topic.hours, 0));
+        })
+        .catch((error) => console.error("Error fetching course data:", error));
+    }
+  }, [courseId]);
+
+  const handleMarkChange = (index, value) => {
+    const newMarks = [...caMarks];
+    newMarks[index] = value;
+    setCaMarks(newMarks);
   };
+
+  const handleTopicToggle = (id) => {
+    const newCompletedTopics = {
+      ...completedTopics,
+      [id]: !completedTopics[id],
+    };
+    setCompletedTopics(newCompletedTopics);
+
+    const completedHours = courseData.topics
+      .filter((topic) => newCompletedTopics[topic.id])
+      .reduce((sum, topic) => sum + topic.hours, 0);
+
+    setRemainingHours(courseData.topics.reduce((sum, topic) => sum + topic.hours, 0) - completedHours);
+  };
+
+  const totalCaMarks = caMarks.reduce((sum, mark) => sum + parseInt(mark || 0), 0);
+  const totalAssessmentMarks = courseData.assessments?.reduce((sum, assessment) => sum + (assessment.marks || 0), 0) || 0;
+  const eligibleForFinal = totalAssessmentMarks > 0 ? totalCaMarks >= 0.5 * totalAssessmentMarks : false;
+
+  const gradeThresholds = {
+    "A+": 85,
+    "A": 75,
+    "A-": 70,
+    "B+": 65,
+    "B": 60,
+    "B-": 55,
+    "C+": 50,
+    "C": 45,
+    "C-": 40,
+  };
+
+  const remainingMarks = Object.entries(gradeThresholds).map(([grade, threshold]) => {
+    const requiredMarks = Math.max(0, threshold - totalCaMarks);
+    const maxFinalExamMarks = 100 - courseData.assessments?.reduce((sum, assessment) => sum + assessment.marks, 0);
+    if (requiredMarks >= 0.3 * maxFinalExamMarks) {
+      return { grade, requiredMarks };
+    }
+    return null;
+  }).filter(Boolean);
 
   return (
     <div className="course-container">
       <NavBar />
-      <h1>{moduleName} <span className="total-hours">Total Hours: {totalHours}</span></h1>
-      
+      <h1>{courseData.courseName} <span className="total-hours">Total Course Hours: {courseData.credits * 14}</span></h1>
       <h2>Contents</h2>
-      <ul>
-        {contents.map((content, index) => (
-          <li key={index}>
-            {content.name} 
-            <input type="checkbox" checked={content.completed} readOnly />
-          </li>
-        ))}
-      </ul>
-      
-      <h3>Completed: {((contents.filter(c => c.completed).length / contents.length) * 100).toFixed(2)}%</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Topic Name</th>
+            <th>Hours</th>
+            <th>Completed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courseData.topics?.map((topic) => (
+            <tr key={topic.id}>
+              <td>{topic.name}</td>
+              <td>{topic.hours}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  checked={completedTopics[topic.id] || false}
+                  onChange={() => handleTopicToggle(topic.id)}
+                />
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <h2>Continuous Assessments</h2>
-      {caMarks.map((mark, index) => (
-        <p key={index}>CA-{index + 1} Marks: {mark} / 40</p>
-      ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Assessment</th>
+            <th>Marks (Out of)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courseData.assessments?.map((assessment, index) => (
+            <tr key={index}>
+              <td>{assessment.name}</td>
+              <td>
+                <input
+                  type="number"
+                  value={caMarks[index]}
+                  onChange={(e) => handleMarkChange(index, e.target.value)}
+                />
+                (out of {assessment.marks})
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-      <h2>Total CA Marks = {totalCaMarks}</h2>
-      <p>{eligibleForFinal ? "✅ Eligible for Final Exam" : "❌ Not Eligible for Final Exam"}</p>
+      <h3>Total CA Marks: {totalCaMarks}</h3>
+      <h3>{eligibleForFinal ? "Eligible to Face Final Exam" : "Not Eligible to Face Final Exam"}</h3>
+      <h3>Remaining Lecture Hours: {remainingHours}</h3>
 
-      <h2>Required More Marks</h2>
-      <p>Marks Needed to Pass: {moreMarksNeeded}</p>
-
-      <h2>Final Grade</h2>
-      <p>Your Grade: {calculateGrade(totalCaMarks + moreMarksNeeded)}</p>
+      {eligibleForFinal && (
+        <div>
+          <h3>Remaining Marks Needed for Each Grade:</h3>
+          <ul>
+            {remainingMarks.map(({ grade, requiredMarks }) => (
+              <li key={grade}>{grade}: {requiredMarks} marks</li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

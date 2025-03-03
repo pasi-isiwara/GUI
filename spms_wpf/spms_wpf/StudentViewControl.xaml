@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="spms_wpf.StudentViewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Height="500" Width="700">
+    <Grid Background="#D3F8E5">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="20">
+                <TextBlock Text="Analog Electronics" FontSize="30" FontWeight="Bold" Foreground="#0C8F67" HorizontalAlignment="Center"/>
+                <TextBlock Text="Total Course Hours: 42" FontSize="14" Foreground="#0A7255" HorizontalAlignment="Right" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Contents" FontSize="24" FontWeight="Bold" Margin="0,20,0,10"/>
+                <Separator Background="#0A7255" Height="2"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Topic Name" FontWeight="Bold" Width="200"/>
+                    <TextBlock Text="Hours" FontWeight="Bold" Width="100"/>
+                    <TextBlock Text="Completed" FontWeight="Bold"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="LO1" Width="200"/>
+                        <TextBlock Text="5" Width="100"/>
+                        <CheckBox IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="LO2" Width="200"/>
+                        <TextBlock Text="4" Width="100"/>
+                        <CheckBox IsEnabled="False"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="LO3" Width="200"/>
+                        <TextBlock Text="6" Width="100"/>
+                        <CheckBox IsEnabled="False"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Text="Continuous Assessments" FontSize="24" FontWeight="Bold" Margin="0,20,0,10"/>
+                <Separator Background="#0A7255" Height="2"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,10">
+                    <TextBlock Text="Assessment" FontWeight="Bold" Width="200"/>
+                    <TextBlock Text="Marks (Out of)" FontWeight="Bold" Width="200"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="CA-1" Width="200"/>
+                        <TextBlock Text="(out of 5)" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="CA-2" Width="200"/>
+                        <TextBlock Text="(out of 20)" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="CA-3" Width="200"/>
+                        <TextBlock Text="(out of 5)" Width="200"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5">
+                        <TextBlock Text="LABS" Width="200"/>
+                        <TextBlock Text="(out of 10)" Width="200"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Text="Total CA Marks: 0" Margin="0,20,0,0"/>
+                <TextBlock Text="Not Eligible to Face Final Exam" Foreground="Red" Margin="0,5"/>
+                <TextBlock Text="Remaining Lecture Hours: 0" Margin="0,5"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>
